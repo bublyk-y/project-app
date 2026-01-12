@@ -4,10 +4,9 @@ class Person {
   String? _name;
   String? _surname;
 
-  Person({String? name, String? surname}) {
-    _name = name;
-    _surname = surname;
-  }
+  Person({required String name, required String surname})
+    : _name = name,
+      _surname = surname;
 
   String? get name => _name;
   String? get surname => _surname;
@@ -28,10 +27,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final Person person = Person(
-    name: "Юлія",
-    surname: "Репета",
-  );
+  final Person person = Person(name: "Юлія", surname: "Репета");
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +38,7 @@ class MyApp extends StatelessWidget {
           width: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF556832),
-                Color(0xFFE6E6FA),
-              ],
+              colors: [Color(0xFF556832), Color(0xFFE6E6FA)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -59,18 +52,9 @@ class MyApp extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 12,
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 12)],
                 ),
-                child: const Icon(
-                  Icons.person,
-                  size: 60,
-                  color: Colors.grey,
-                ),
+                child: const Icon(Icons.person, size: 60, color: Colors.grey),
               ),
               const SizedBox(height: 24),
               Container(
@@ -81,12 +65,7 @@ class MyApp extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10,
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
                 ),
                 child: Column(
                   children: [
@@ -100,10 +79,7 @@ class MyApp extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(
                       person.surname ?? '',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.grey[700],
-                      ),
+                      style: TextStyle(fontSize: 22, color: Colors.grey[700]),
                     ),
                   ],
                 ),

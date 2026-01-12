@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 
 class Person {
-  String _name;
-  String _surname;
+  String? _name;
+  String? _surname;
 
-  Person({required String name, required String surname})
-      : _name = name,
-        _surname = surname;
+  Person({String? name, String? surname}) {
+    _name = name;
+    _surname = surname;
+  }
 
-  String get name => _name;
-  String get surname => _surname;
+  String? get name => _name;
+  String? get surname => _surname;
 
-  set name(String newName) => _name = newName;
-  set surname(String newSurname) => _surname = newSurname;
+  set name(String? newName) {
+    _name = newName;
+  }
+
+  set surname(String? newSurname) {
+    _surname = newSurname;
+  }
 }
 
 void main() {
@@ -37,7 +43,7 @@ class MyApp extends StatelessWidget {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(556832),
+                Color(0xFF556832),
                 Color(0xFFE6E6FA),
               ],
               begin: Alignment.topLeft,
@@ -85,7 +91,7 @@ class MyApp extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      person.name,
+                      person.name ?? '',
                       style: const TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
@@ -93,7 +99,7 @@ class MyApp extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      person.surname,
+                      person.surname ?? '',
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.grey[700],

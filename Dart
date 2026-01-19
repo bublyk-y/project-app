@@ -1,0 +1,157 @@
+import 'package:flutter/material.dart';
+
+mixin LoggerMixin {
+  void log(String message) {
+    debugPrint("LOG: $message");
+  }
+}
+
+class Person with LoggerMixin {
+  String _name;
+  String _surname;
+  int? _age;
+  
+  Person({
+    required String name,
+    required String surname,
+    int? age,
+  })  : assert(name.isNotEmpty),
+        _name = name,
+        _surname = surname,
+        _age = age {
+    log("Person створений");}
+
+  factory Person.anonymous() {
+    return Person(name: "Невідомо", surname: "Невідомо");
+  }
+
+  void setAgeIfNull(int value) {
+    _age ??= value;
+  }
+
+  String get fullName => "$_name $_surname";
+  int get age => _age ?? 0;
+}
+
+Function counterCreator() {
+  int counter = 0;
+  return () {
+    counter++;
+    return counter;
+  };
+}
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  final Person person = Person(
+    name: "Юлія",
+    surname: "Репета",
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    person.setAgeIfNull(22);
+
+    List<String> interests = [
+      "Читати книжки",
+      "Смакувати каву",
+      "Розв‘язувати судоку",
+    ];
+
+    Map<String, String> favorites = {
+      "Група": "Twenty One Pilots",
+      "Книжка": "Шепіт за дверима – Т. Дж. Клюн",
+    };
+
+    final counter = counterCreator();
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF556832), Color(0xFFE6E6FA)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Center(
+            child: Container(
+              width: 320,
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 12,
+                    offset: Offset(0, 6),
+                  )
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Center(
+                    child: Column(
+                      children: [
+                        const Icon( Icons.person, size: 72,
+                          color:Colors.grey, ),
+
+                        const SizedBox(height: 12),
+                        Text(
+                          person.fullName,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Вік: ${person.age}",
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+                  const Text(
+                    "Інтереси",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  ...interests.map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Text("• $e"),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+                  const Divider(),
+
+                  Text("Улюблена група: ${favorites["Група"]}"),
+                  const SizedBox(height: 4),
+                  Text("Улюблена книжка: ${favorites["Книжка"]}"),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
